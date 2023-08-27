@@ -63,7 +63,6 @@ export const Signup = () => {
             fullWidth={true}
             label="profile photo"
             variant="outlined"
-            type={"password"}
         />
         <br/><br/>
 
@@ -74,7 +73,9 @@ export const Signup = () => {
 
                 const response = await axios.post("http://localhost:8000/auth/signup" , {
                     username : email,
-                    password : password
+                    password : password,
+                    profilePhoto : profilePhoto,
+                    email : email,
                 })
                 console.log(response.data);
                 let data = response.data;

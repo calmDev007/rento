@@ -19,11 +19,9 @@
                 });
                 const data = res.data;
                 localStorage.setItem("token", data.token);
-                console.log("logged in succesfully");
-                navigate("/");
             }
             catch(err){
-                alert("invalid crecidentials");
+                console.log(err);
             }
                 
             };   
