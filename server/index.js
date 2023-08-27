@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const express  = require('express');
-// import express from
 const app = express();
 
 const port = 8000;
