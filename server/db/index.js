@@ -4,8 +4,8 @@ const userSchema = new mongoose.Schema ({
     username: String,
     email:String,
     password: String,
-    profileimage:String,
-    purchased: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Property' }]
+    profileimage:String
+    // purchased: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Property' }]
 })
 
 const User = mongoose.model('User', userSchema);
