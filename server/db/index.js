@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema ({
     username: String,
     email:String,
     password: String,
-    profileimage:String
+    profilePhoto:String,
     // purchased: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Property' }]
 })
 

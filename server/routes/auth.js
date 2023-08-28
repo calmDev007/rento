@@ -30,6 +30,7 @@ router.post('/login', async (req, res) => {
     } 
     else {
       res.status(403).json({ message: 'Invalid username or password' });
+      console.log("else se log");
     }
   } catch (error) {
     res.status(403).json({ message: 'An error occurred' });
