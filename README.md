@@ -9,4 +9,4 @@ Revolutionizing property transactions! Buy, sell, and rent real estate seamlessl
 
 👋 Contributions: Join our mission to transform real estate. Developers, designers, enthusiasts – all welcome! Let's reshape property experiences together!
 
-Happy coding! 😄🏡🛍️.
+Happy coding! 😄🏡🛍️..
