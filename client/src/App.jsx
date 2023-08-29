@@ -22,6 +22,7 @@ function App() {
                         <Route path={"/views"} element={<Views />} />
                         <Route path={"/login"} element={<Login />} />
                         <Route path={"/signup"} element={<Signup />} />
+                        <Route path='/user/:activepage' element={<Profile/>} />
                     </Routes>
                 </Router>
         </div>

@@ -7,14 +7,14 @@
     import { useNavigate } from 'react-router-dom';
 
      export function Login() {
-         const [username, setUsername] = useState('');
+         const [email, setEmail] = useState('');
          const [password, setPassword] = useState('');
         const navigate = useNavigate();
 
          const handleLogin = async () => {
             try{
                 const res = await axios.post("http://localhost:8000/auth/login", {
-                    username: username,
+                    email: email,
                     password: password
                 });
                 const data = res.data;
@@ -43,10 +43,10 @@
                      <Card variant={"outlined"} style={{width: 400, padding: 20}}>
                          <TextField
                              fullWidth={true}
-                             label="username"
+                             label="email"
                              variant="outlined"
-                             value={username}
-                             onChange={(e) => setUsername(e.target.value)}
+                             value={email}
+                             onChange={(e) => setEmail(e.target.value)}
                          />
                          <br/><br/>
                          <TextField
