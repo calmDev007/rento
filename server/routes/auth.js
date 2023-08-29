@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
 
-      res.status(401).send({
+      return res.status(401).send({
         success: false,
         message: "Invalid credentials"
       })
