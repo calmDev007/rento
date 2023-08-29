@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Landing } from './components/landing'
-import { Topbar } from './components/Topbar'
-import { Profile } from './components/profile'
-import { Views } from './components/Views'
-import { Login } from './components/login'
-import { Signup } from './components/signup'
+import { Landing } from './pages/landing'
+import { Topbar } from './pages/Topbar'
+import { Profile } from './pages/Profile';
+import { Views } from './pages/Views';
+import { Login } from './pages/Login';
+import { Signup } from './pages/Signup';
 
 function App() {
   return (
