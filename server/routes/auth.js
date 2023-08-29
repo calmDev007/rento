@@ -20,12 +20,12 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email , password });
+    const { username, password } = req.body;
+    const user = await User.findOne({ username , password });
 
     if (!user) {
 
-      res.status(401).send({
+      return res.status(401).send({
         success: false,
         message: "Invalid credentials"
       })
