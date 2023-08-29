@@ -24,14 +24,23 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username , password });
 
-    if (user) {
-      const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: '1h' });
-      res.json({ message: 'Logged in successfully', token });
+    if (!user) {
+
+      res.status(401).send({
+        success: false,
+        message: "Invalid credentials"
+      })
+     
     } 
-    else {
-      res.status(403).json({ message: 'Invalid username or password' });
-      console.log("else se log");
-    }
+
+    const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: '1h' });
+    res.json({ message: 'Logged in successfully', token });
+    res.status(201).send({
+      message: "Signed In successfully",
+      token,
+      success: true,
+    })
+    
   } catch (error) {
     res.status(403).json({ message: 'An error occurred' });
   }
