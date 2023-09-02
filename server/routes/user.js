@@ -7,7 +7,7 @@ const { authenticateJwt, SECRET } = require("../middleware/");
 const router = express.Router();
 
 router.post("/properties", authenticateJwt,async (req, res) => {
-    try{    
+    try{  
     const property = new Property({
             type: req.body.type,
             description: req.body.description, 
@@ -45,7 +45,13 @@ router.post("/properties", authenticateJwt,async (req, res) => {
   router.get("/bookmarks", authenticateJwt, async (req, res) => {
     try {
       const bookmarks = await Bookmark.find({ user_id: req.user.id });
-      res.json(bookmarks);
+      if(!bookmarks) {
+        return res.status(401).send({
+          success: false,
+          message: "bookmark not found"
+        })
+      }
+      const UserBookmarks = await Bookmark.find({ property_id: req.body.property_id });
     } catch (error) {
       console.error('An error occurred in /bookmarks route:', error);
       res.status(500).json({ message: 'An internal server error occurred' });
@@ -59,7 +65,10 @@ router.post("/properties", authenticateJwt,async (req, res) => {
       property_id: req.body.property_id,
     });
     await bookmark.save();
-    res.json(bookmark);
+    res.status(200).send({
+      success: true,
+      message: "bookmark added"
+    });
   });
 
   module.exports = router;
