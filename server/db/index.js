@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true },
     password: String,
     profilePhoto: String,
+    bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Property" }],
 });
 
 const User = mongoose.model("User", userSchema);

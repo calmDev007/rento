@@ -20,8 +20,8 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username , password });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email , password });
 
     if (!user) {
 
