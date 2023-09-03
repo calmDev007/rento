@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
 
-const BookmarkSchema = new mongoose.Schema({
-    user_id: { type: mongoose.Types.ObjectId, ref: "User" },
-    property_id: { type: mongoose.Types.ObjectId, ref: "Property" },
-});
-
+const bookmarkSchema = new mongoose.Schema({
+    title: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    }
+  });
+  
 const PostSchema = new mongoose.Schema({
     user_id: { type: mongoose.Types.ObjectId, ref: "User" },
     property_id: { type: mongoose.Types.ObjectId, ref: "Property" },
@@ -24,7 +30,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
-const Bookmark = mongoose.model("Bookmark", BookmarkSchema);
+const Bookmark = mongoose.model('Bookmark', bookmarkSchema);
 const Post = mongoose.model("Post", PostSchema);
 const Purchased = mongoose.model("Purchased", PurchasedSchema);
 
