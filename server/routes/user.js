@@ -42,25 +42,39 @@ router.post("/properties", authenticateJwt,async (req, res) => {
     }
   });
 
-  router.post('/add', async (req, res) => {
+  router.post('/add', authenticateJwt, async (req, res) => {
     try {
-      const { title, url } = req.body;
-      const newBookmark = new Bookmark({ title, url });
+      if (!req.body.title || !req.body.url) {
+        return res.status(400).json({ message: 'Title and URL are required' });
+      }
+  
+      const newBookmark = new Bookmark({
+        title: req.body.title,
+        url: req.body.url,
+        author: req.user.id,
+      });
+  
+      console.log("This is logging from add route " + req.user.id);
+  
       await newBookmark.save();
-      // res.redirect('/bookmarks');
-      res.json({
-        "message":"true"
-      }).status(200);
+      res.status(200).json({ message: 'Bookmark added successfully' });
     } catch (err) {
       console.error(err);
-      res.status(500).send('Error adding bookmark');
+      res.status(500).json({ message: 'Error adding bookmark' });
     }
   });
   
   // List bookmarks
-  router.get('/bookmarks', async (req, res) => {
+  router.get('/bookmarks', authenticateJwt, async (req, res) => {
     try {
-      const bookmarks = await Bookmark.find();
+      const user_id = req.user.id;
+      // console.log("this is logging from user" + user);
+      const bookmarks = await Bookmark.find({
+      author: user_id, 
+      });
+
+      console.log("this is logging from bookmarks " + user_id)
+      
       res.send(bookmarks).status(200);
     } catch (err) {
       console.error(err);

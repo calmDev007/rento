@@ -8,7 +8,8 @@ const bookmarkSchema = new mongoose.Schema({
     url: {
       type: String,
       required: true,
-    }
+    },
+    author: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
   });
   
 const PostSchema = new mongoose.Schema({
@@ -26,7 +27,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true },
     password: String,
     profilePhoto: String,
-    bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Property" }],
+    // bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Property" }],
 });
 
 const User = mongoose.model("User", userSchema);
