@@ -76,14 +76,14 @@ router.post("/properties", authenticateJwt,async (req, res) => {
   
   router.get('/bookmarks', authenticateJwt, async (req, res) => {
     try {
-      const username = req.user.username;
-      console.log(username);
+      const Username = req.user.username;
+      console.log(Username);
   
       // Find the user based on their username
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ Username });
   
       if (!user) {
-        return res.status(404).json({ message: "User not found", id: username });
+        return res.status(404).json({ message: "User not found", id: Username });
       }
   
       // Find bookmarks and populate the 'author' field with user data
