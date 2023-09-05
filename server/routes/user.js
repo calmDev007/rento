@@ -45,10 +45,10 @@ router.post("/properties", authenticateJwt,async (req, res) => {
 
   router.post('/add', authenticateJwt, async (req, res) => {
     try {
-      const username = req.user.username;
+      const Username = req.user.username;
   
       // Find the user based on their username
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ Username });
   
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -76,11 +76,11 @@ router.post("/properties", authenticateJwt,async (req, res) => {
   
   router.get('/bookmarks', authenticateJwt, async (req, res) => {
     try {
-      const username = req.user.username;
-      console.log(username);
+      const Username = req.user.username;
+      console.log(Username);
   
       // Find the user based on their username
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ Username });
   
       if (!user) {
         return res.status(404).json({ message: "User not found", id: username });

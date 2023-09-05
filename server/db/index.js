@@ -6,7 +6,8 @@ const bookmarkSchema = new mongoose.Schema({
       required: true,
     },
     url: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Property",
       required: true,
     },
     author: { 
