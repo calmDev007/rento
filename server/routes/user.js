@@ -45,7 +45,6 @@ router.post("/properties", authenticateJwt,async (req, res) => {
 
   router.post('/add', authenticateJwt,async (req, res) => {
     try {
-      // const user_id = req.user.id; // error 
       const username = req.user.username;
       const user = await User.findOne({ username });
       if(!user){
@@ -66,7 +65,7 @@ router.post("/properties", authenticateJwt,async (req, res) => {
       }).status(200);
     } catch (err) {
       console.error(err);
-      res.status(500).send('Error adding bookmark');
+      res.status(500).json({ message: 'Error adding bookmark' });
     }
   });
   
