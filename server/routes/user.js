@@ -43,47 +43,60 @@ router.post("/properties", authenticateJwt,async (req, res) => {
     }
   });
 
-  router.post('/add', authenticateJwt,async (req, res) => {
+  router.post('/add', authenticateJwt, async (req, res) => {
     try {
       const username = req.user.username;
+  
+      // Find the user based on their username
       const user = await User.findOne({ username });
-      if(!user){
-        res.json({
-          "message" : "user not found"
-        })
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
       }
+  
+      // Create a new bookmark document
       const newBookmark = new Bookmark({
         title: req.body.title,
         url: req.body.url,
         author: user._id,
       });
-
+  
+      // Save the new bookmark to the database
       await newBookmark.save();
-      res.json({
-        "message":"true",
-        "id" : user._id
-      }).status(200);
+  
+      res.status(201).json({
+        message: 'Bookmark added successfully',
+        id: newBookmark._id,
+      });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: 'Error adding bookmark' });
     }
   });
   
-  router.get('/bookmarks', authenticateJwt,async (req, res) => {
+  router.get('/bookmarks', authenticateJwt, async (req, res) => {
     try {
       const username = req.user.username;
-      const user = await User.findOne({username});
-      if(!user) {
-        res.json({
-          "message" : "user not found"
-        })
+      console.log(username);
+  
+      // Find the user based on their username
+      const user = await User.findOne({ username });
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found", id: username });
       }
-      console.log(user._id);
+  
+      // Find bookmarks and populate the 'author' field with user data
       const bookmarksOfUser = await Bookmark.find({ author: user._id }).populate('author');
-      res.send(bookmarksOfUser).status(200);
+  
+      if (bookmarksOfUser.length === 0) {
+        return res.status(404).json({ message: "User has no bookmarks" });
+      }
+  
+      res.status(200).json(bookmarksOfUser);
     } catch (err) {
       console.error(err);
-      res.status(500).send(`Error fetching bookmarks: ${err.message}`);
+      res.status(500).json({ error: `Error fetching bookmarks: ${err.message}` });
     }
   });
   
