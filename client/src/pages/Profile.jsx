@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom"
-import { Topbar } from "./Topbar";
+import { useParams } from "react-router-dom";
+import { TopBar } from "../components/TopBar";
 import UserSideBar from "../components/profile/UserSideBar";
 import AccountSetting from "../components/profile/AccountSetting"
 import "./profile.css"
@@ -12,7 +12,7 @@ export const Profile = () => {
 
     return (
         <div className="userprofile">
-            <Topbar/>
+            <TopBar/>
             <div className="userprofilein">
 
                 <div className="left">
