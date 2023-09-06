@@ -43,6 +43,18 @@ router.post("/properties", authenticateJwt,async (req, res) => {
     }
   });
 
+  router.get("/getallposts", authenticateJwt, async (req, res) => {
+    try {
+      const posts = await Property.find({
+        avialability: true, 
+      });
+      res.json(posts);
+    } catch (error) {
+      console.error('An error occurred in /posts route:', error);
+      res.status(500).json({ message: 'An internal server error occurred' });
+    }
+  });
+
   router.post('/add', authenticateJwt, async (req, res) => {
     try {
       const Username = req.user.username;

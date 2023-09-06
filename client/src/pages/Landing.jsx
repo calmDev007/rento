@@ -1,5 +1,7 @@
+import { Avilablepro } from "../components/Avilablepro"
 export const Landing = () => {
-    return <>
+    return ( <>
+        <Avilablepro/>
         This is landing page
-    </>
+    </> )
 }
