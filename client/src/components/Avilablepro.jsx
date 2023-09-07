@@ -22,7 +22,7 @@ export function Avilablepro() {
   useEffect(() => {
     preload();  
     console.log(property);
-  }, []);
+  }, [property]);
 
   return (
     <div>
