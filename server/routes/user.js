@@ -92,7 +92,7 @@ router.post("/properties", authenticateJwt,async (req, res) => {
       console.log(Email);
   
       // Find the user based on their username
-      const user = await User.find({ username :  Username});
+      const user = await User.find({ email : Email});
   
       if (!user) {
         return res.status(404).json({ message: "User not found", user_detail: user });

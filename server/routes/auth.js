@@ -47,11 +47,12 @@ router.post('/login', async (req, res) => {
 
 router.get('/me', authenticateJwt, async (req, res) => {
   try {
-    const userid = req.user.id;
-    const user = await User.find({ _id : userid });
+    const id = req.user.id;
+    const newuser = await User.findOne({ _id : id });
+    console.log(newuser);
 
-    if (user) {
-      res.json({ user });
+    if (newuser) {
+      res.json({ newuser });
     } else {
       res.status(403).json({ message: 'User not found' });
     }
