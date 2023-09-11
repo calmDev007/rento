@@ -9,7 +9,7 @@ export function Avilablepro() {
     try {
       const response = await axios.get("http://localhost:8000/user/getallposts", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       setProperty(response.data);

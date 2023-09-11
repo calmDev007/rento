@@ -88,8 +88,8 @@ router.post("/properties", authenticateJwt,async (req, res) => {
   
   router.get('/bookmarks', authenticateJwt, async (req, res) => {
     try {
-      const Username = req.user.username;
-      console.log(Username);
+      const Email = req.user.email;
+      console.log(Email);
   
       // Find the user based on their username
       const user = await User.find({ username :  Username});
@@ -125,16 +125,21 @@ router.post("/properties", authenticateJwt,async (req, res) => {
 
   router.get('/getuserid', authenticateJwt, async (req, res) => {
     try {
-      const username = req.user.username;
-      console.log(username);
-      const user = await User.findOne({ username });
+      const email = req.user.email;
+      if (!email) {
+        return res.status(400).json({ error: 'Username not provided' });
+      }
+  
+      const user = await User.findOne({ email });
+  
       if (!user) {
         return res.status(400).json({ error: 'User not found' });
       }
+  
       res.status(200).json({
         success: true,
         message: 'User ID retrieved successfully',
-        id: user._id,
+        user,
       });
     } catch (e) {
       console.error('Error:', e);
@@ -143,6 +148,7 @@ router.post("/properties", authenticateJwt,async (req, res) => {
       });
     }
   });
+  
   
   
 

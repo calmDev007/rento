@@ -46,13 +46,21 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/me', authenticateJwt, async (req, res) => {
-  const userId = req.headers["userId"];
-  const user = await User.findOne({ _id: userId });
-  if (user) {
-    res.json({ username: user.username });
-  } else {
-    res.status(403).json({ message: 'User not logged in' });
+  try {
+    const userId = req.user._id;
+    const user = await User.findOne({ _id: userId });
+
+    if (user) {
+      res.json({ user });
+    } else {
+      res.status(403).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+
 
 module.exports = router;
