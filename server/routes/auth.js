@@ -47,8 +47,8 @@ router.post('/login', async (req, res) => {
 
 router.get('/me', authenticateJwt, async (req, res) => {
   try {
-    const userId = req.user._id;
-    const user = await User.findOne({ _id: userId });
+    const userid = req.user.id;
+    const user = await User.find({ _id : userid });
 
     if (user) {
       res.json({ user });
