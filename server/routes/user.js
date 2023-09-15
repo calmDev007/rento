@@ -100,7 +100,11 @@ router.post("/properties", authenticateJwt,async (req, res) => {
   
       // Find bookmarks and populate the 'author' field with user data
       const bookmarksOfUser = await Bookmark.find({ author: user._id }).populate('author');
-  
+      const property = bookmarksOfUser.map((p) => {
+        p.url;
+        
+      })
+      console.log(property);
       if (bookmarksOfUser.length === 0) {
         return res.status(404).json({ message: "User has no bookmarks" });
       }

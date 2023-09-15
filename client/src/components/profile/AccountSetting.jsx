@@ -5,7 +5,7 @@ import axios from "axios";
 import "./accountsetting.css";
 
 const AccountSetting = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({}); // Initialize as an empty object
   const navigate = useNavigate();
 
   const getUser = async () => {
@@ -15,7 +15,7 @@ const AccountSetting = () => {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(response.data);
+      
       setUser(response.data);
     } catch (err) {
       console.log(err);
@@ -33,10 +33,10 @@ const AccountSetting = () => {
       minHeight: 200,
       padding: 20
     }}>
-      <Typography textAlign={"center"} variant="h5">{user.username}</Typography>
-      <Typography textAlign={"center"} variant="subtitle1">{user.email}</Typography>
-      {user.profilephoto && (
-        <img src={user.profilephoto} alt="Profile" style={{ width: 300 }} />
+      <Typography textAlign={"center"} variant="h5">{user.newuser && user.newuser.username}</Typography>
+      <Typography textAlign={"center"} variant="subtitle1">{user.newuser && user.newuser.email}</Typography>
+      {user.newuser && user.newuser.profilephoto && (
+        <img src={user.newuser.profilephoto} alt="Profile" style={{ width: 300 }} />
       )}
     </Card>
   );

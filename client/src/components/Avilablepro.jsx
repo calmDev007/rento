@@ -25,7 +25,7 @@ export function Avilablepro() {
   }, [property]);
 
   return (
-    <div>
+    <div style={{  display : "flex" , flexDirection : "row"  , flexWrap : "wrap" , justifyContent : "center" }}>
         {property?.map((oneproperty) => (
         <Property key={oneproperty.id} oneproperty={oneproperty} />
         ))}
@@ -35,9 +35,9 @@ export function Avilablepro() {
 
 export function Property({ oneproperty }) {
   return (
-    <Card style={{ margin: 10, width: 300, minHeight: 200, padding: 20 }}>
+    <Card style={{ margin: 10, width: 300, minHeight: 200, padding: 20 } }>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid item xs={12} >
           <Paper>
             <Typography textAlign={"center"} variant="h5">
               {oneproperty.type}
