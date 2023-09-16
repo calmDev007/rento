@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -15,8 +16,12 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Avilablepro } from './Avilablepro';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -48,7 +53,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -61,10 +65,47 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export function TopBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const navigate = useNavigate();;
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState('');
+  const [filteredProperties, setFilteredProperties] = useState([]);
+  const [allProperties, setAllProperties] = useState([]);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get('http://localhost:8000/user/getallposts', {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        setAllProperties(response.data);
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+
+    const filtered = allProperties.filter((item) => {
+      const lowercaseLocation = item.location ? item.location.toLowerCase() : '';
+      const lowercaseType = item.type ? item.type.toLowerCase() : ''; 
+      const lowercasePrice = item.price ? item.price.toString().toLowerCase() : ''; 
+      const lowercaseSearchValue = searchValue ? searchValue.toLowerCase() : ''; 
+    
+      return (lowercaseLocation.includes(lowercaseSearchValue) || lowercasePrice.includes(lowercaseSearchValue)  || lowercaseType.includes(lowercaseSearchValue))
+    });
+    setFilteredProperties(filtered);
+  }, [searchValue, allProperties]);
+
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -80,6 +121,7 @@ export function TopBar() {
 
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -96,40 +138,7 @@ export function TopBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        
-        <Button onClick={()=> {
-          navigate('/user/accountsettings')}}>Profile</Button>
-      </MenuItem>
+      {/* Your mobile menu items */}
     </Menu>
   );
 
@@ -161,6 +170,8 @@ export function TopBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              value={searchValue}
+              onChange={handleSearchChange}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
@@ -186,8 +197,9 @@ export function TopBar() {
               aria-controls={menuId}
               aria-haspopup="true"
               color="inherit"
-              onClick={()=> {
-                navigate('/user/accountsettings')}}
+              onClick={() => {
+                navigate('/user/accountsettings');
+              }}
             >
               <AccountCircle />
             </IconButton>
@@ -207,6 +219,8 @@ export function TopBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
+      {/* Pass the filtered properties to Avilablepro */}
+      <Avilablepro properties={filteredProperties} />
     </Box>
   );
 }

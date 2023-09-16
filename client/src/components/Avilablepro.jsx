@@ -1,55 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { Grid, Paper, Typography, Card } from "@mui/material";
-import axios from "axios";
+import React from 'react';
+import { Grid, Paper, Typography, Card } from '@mui/material';
 
-export function Avilablepro() {
-  const [property, setProperty] = useState([]);
-
-  const preload = async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/user/getallposts", {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setProperty(response.data);
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
+export function Avilablepro({ properties }) {
+  // Check if properties is undefined or null
+  if (!properties || properties.length === 0) {
+    return null; 
   }
 
-  useEffect(() => {
-    preload();  
-    console.log(property);
-  }, [property]);
-
   return (
-    <div style={{  display : "flex" , flexDirection : "row"  , flexWrap : "wrap" , justifyContent : "center" }}>
-        {property?.map((oneproperty) => (
+    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+      {properties.map((oneproperty) => (
         <Property key={oneproperty.id} oneproperty={oneproperty} />
-        ))}
+      ))}
     </div>
   );
 }
 
 export function Property({ oneproperty }) {
+
+  const type = oneproperty.type || '';
+  const description = oneproperty.description || '';
+  const price = oneproperty.price || '';
+  const location = oneproperty.location || '';
+
   return (
-    <Card style={{ margin: 10, width: 300, minHeight: 200, padding: 20 } }>
+    <Card style={{ margin: 10, width: 300, minHeight: 200, padding: 20 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} >
+        <Grid item xs={12}>
           <Paper>
-            <Typography textAlign={"center"} variant="h5">
-              {oneproperty.type}
+            <Typography textAlign={'center'} variant="h5">
+              {type}
             </Typography>
-            <Typography textAlign={"center"} variant="h5">
-              {oneproperty.description}
+            <Typography textAlign={'center'} variant="h5">
+              {description}
             </Typography>
-            <Typography textAlign={"center"} variant="h5">
-              {oneproperty.price}
+            <Typography textAlign={'center'} variant="h5">
+              {price}
             </Typography>
-            <Typography textAlign={"center"} variant="h5">
-              {oneproperty.location}
+            <Typography textAlign={'center'} variant="h5">
+              {location}
             </Typography>
           </Paper>
         </Grid>
