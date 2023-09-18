@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Typography } from "@mui/material";
+import { Card, Typography, colors } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./accountsetting.css";
@@ -28,16 +28,23 @@ const AccountSetting = () => {
 
   return (
     <Card style={{
-      margin: 10,
-      width: 300,
+      backgroundColor:'#28282B',
+      color:'white',
       minHeight: 200,
-      padding: 20
+      display: 'flex'
     }}>
+      {user.newuser && user.newuser.profilePhoto && (   
+        <img src={user.newuser.profilePhoto} alt="Profile" style={{ width: 300 }} />
+      )}
+      <div style={{
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'center',
+        marginLeft:'50px'
+      }}>
       <Typography textAlign={"center"} variant="h5">{user.newuser && user.newuser.username}</Typography>
       <Typography textAlign={"center"} variant="subtitle1">{user.newuser && user.newuser.email}</Typography>
-      {user.newuser && user.newuser.profilephoto && (
-        <img src={user.newuser.profilephoto} alt="Profile" style={{ width: 300 }} />
-      )}
+      </div>
     </Card>
   );
 }

@@ -1,3 +1,7 @@
+.userdetails {
+    background-color: rgb(46, 40, 40);
+}
+
 .userprofile {
     display: flex;
     flex-direction: column;

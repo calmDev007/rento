@@ -15,7 +15,7 @@ function App() {
             backgroundColor: "#eeeeee"}}
         >
                 <Router>
-                    <TopBar />
+                    {/* <TopBar /> */}
                     <Routes>
                         <Route path={"/"} element={<Landing />} />
                         <Route path={"/profile"} element={<Profile />} />

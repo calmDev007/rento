@@ -13,13 +13,15 @@ export const Profile = () => {
     return (
         <div className="userprofile">
             {/* <TopBar/> */}
+                <div className="userdetails">
+                    <AccountSetting/>
+                </div>
             <div className="userprofilein">
 
                 <div className="left">
                     <UserSideBar activepage={activepage}/>
                 </div>
                 <div className="right">
-                    {activepage==='accountsettings' && <AccountSetting/>}
                     {activepage==='bookmarks' && <Bookmark/>}
                     {activepage==='posts' && <Post/>}
                     {activepage==='purchasedproperty' && <PurchasedProperty/>}
