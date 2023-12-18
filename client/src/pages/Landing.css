@@ -1,0 +1,41 @@
+.landing-banner-container {
+    position: relative;
+    display: flex;
+    padding: 0;
+    
+  }
+  .landing-bannerImage-container {
+    position: fixed;
+    top: -100px;
+    right: -170px;
+    z-index: -2;
+    max-width: 700px;
+    overflow: hidden;
+  }
+  .landing-image-section {
+    max-width: 600px;
+    flex: 1;
+  }
+  .landing-text-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .landingpage-img{
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  .primary-heading {
+    font-size: 35px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 17%;
+    transform: translate(-50%,-50%);
+    margin-left: 10%;
+  }
+  

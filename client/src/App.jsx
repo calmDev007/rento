@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Landing } from './pages/landing'
+import { Landing } from './pages/Landing';
 import { TopBar } from './components/TopBar';
 import { Profile } from './pages/Profile';
 import { Views } from './pages/Views';
