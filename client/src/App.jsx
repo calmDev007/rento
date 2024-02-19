@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Landing } from './pages/Landing';
-import { TopBar } from './components/TopBar';
+import TopBar  from './components/TopBar';
 import { Profile } from './pages/Profile';
 import { Views } from './pages/Views';
 import { Login } from './pages/Login';
@@ -15,7 +15,7 @@ function App() {
             backgroundColor: "#eeeeee"}}
         >
                 <Router>
-                    {/* <TopBar /> */}
+                    <TopBar />
                     <Routes>
                         <Route path={"/"} element={<Landing />} />
                         <Route path={"/profile"} element={<Profile />} />
