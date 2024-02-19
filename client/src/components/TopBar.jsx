@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -11,6 +11,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Appbar = () => {
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  const handleSearchClick = () => {
+    setIsSearchVisible(!isSearchVisible);
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -20,18 +26,20 @@ const Appbar = () => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <div style={{ position: "relative" }}>
-            <IconButton size="large">
+            <IconButton size="large" onClick={handleSearchClick}>
               <SearchIcon />
             </IconButton>
             <InputBase
-              // placeholder="Search"
+              placeholder="Search"
               inputProps={{ "aria-label": "search" }}
               sx={{
                 ml: 1,
-                width: "250px",
-                border: "1px solid black",
+                width: isSearchVisible ? "250px" : "0",
+                border: isSearchVisible ? "1px solid black" : "0",
                 borderRadius: "10px",
                 alignContent: "center",
+                overflow: "hidden",
+                transition: "width 0.3s ease-in-out",
               }}
             />
           </div>
